@@ -12,12 +12,12 @@ import { Game } from '../../models/game';
 export class GameComponent implements OnInit {
   takeCardAnimation = false;
   currentCard: string | undefined = '';
+  playedCard: string | undefined = '';
   game: Game = new Game();
 
   ngOnInit(): void {
     this.newGame();
   }
-
 
   newGame() {
     this.game = new Game();
@@ -30,12 +30,16 @@ export class GameComponent implements OnInit {
       console.log('New Card: ', this.currentCard);
       console.log('Game is ',  this.game);
       this.takeCardAnimation = true;
-      if(this.currentCard != undefined) {
-        this.game.playedCards.push(this.currentCard);
-      }
       setTimeout(() => {
+        if(this.currentCard != undefined) {
+          this.game.playedCards.push(this.currentCard);
+        }
         this.takeCardAnimation = false;
-      }, 2000);
+      }, 1000);
     }
+  }
+
+  showPlayedCard() {
+    this.playedCard = this.game.playedCards.pop();
   }
 }
