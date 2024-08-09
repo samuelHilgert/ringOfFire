@@ -15,7 +15,7 @@
     <img
       (click)="takeCard()"
       style="right: 20px"
-      src="/assets/img/cards/card_cover.png"
+      src="assets/img/cards/card_cover.png"
       class="first-card"
     />
     <!--     [class.take-card]="takeCardAnimation" -->
@@ -25,7 +25,7 @@
     <img
       *ngFor="let card of game.playedCards"
       style="right: 20px"
-      src="/assets/img/cards/{{ card }}.png"
+      src="assets/img/cards/{{ card }}.png"
       class="played-card"
     />
 
@@ -34,7 +34,7 @@
       (click)="takeCard()"
       *ngIf="takeCardAnimation"
       style="right: 20px"
-      src="/assets/img/cards/{{ currentCard }}.png"
+      src="assets/img/cards/{{ currentCard }}.png"
       class="take-card-animation"
     />
   </div>
