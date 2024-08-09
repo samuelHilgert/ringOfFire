@@ -16,21 +16,20 @@ import { GameInfoComponent } from '../game-info/game-info.component';
   selector: 'app-game',
   standalone: true,
   imports: [
-    CommonModule, 
-    PlayerComponent, 
-    MatButtonModule, 
-    MatIconModule, 
-    MatDialogModule, 
-    MatFormFieldModule, 
-    MatInputModule, 
+    CommonModule,
+    PlayerComponent,
+    MatButtonModule,
+    MatIconModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
     FormsModule,
     GameInfoComponent,
-    DialogAddPlayerComponent // DialogAddPlayerComponent hinzufügen
+    DialogAddPlayerComponent, // DialogAddPlayerComponent hinzufügen
   ],
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'], // Korrigierte Schreibweise
 })
-
 export class GameComponent implements OnInit {
   readonly dialog = inject(MatDialog);
 
@@ -54,6 +53,11 @@ export class GameComponent implements OnInit {
       console.log('New Card: ', this.currentCard);
       console.log('Game is ', this.game);
       this.takeCardAnimation = true;
+
+      this.game.currentPlayer++;
+      this.game.currentPlayer =
+        this.game.currentPlayer % this.game.players.length;
+
       setTimeout(() => {
         if (this.currentCard != undefined) {
           this.game.playedCards.push(this.currentCard);
@@ -70,10 +74,10 @@ export class GameComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
 
-    dialogRef.afterClosed().subscribe((name:string) => {
-      this.game.players.push(name);
-      console.log('The dialog was closed ', name);
+    dialogRef.afterClosed().subscribe((name: string) => {
+      if (name && name.length > 0) {
+        this.game.players.push(name);
+      }
     });
   }
-
 }
